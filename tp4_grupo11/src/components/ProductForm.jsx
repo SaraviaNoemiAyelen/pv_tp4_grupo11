@@ -42,6 +42,58 @@ const ProductForm = ({ onAddProducto }) => {
       stock: "",
     });
   };
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>Agregar Producto</h2>
+      <label>ID:</label>
+      <input
+        type="text"
+        name="id"
+        value={producto.id}
+        onChange={handleChange}
+        required
+      />
+
+      <label>Descripción:</label>
+      <input
+        type="text"
+        name="descripcion"
+        value={producto.descripcion}
+        onChange={handleChange}
+        required
+      />
+
+      <label>Precio Unitario:</label>
+      <input
+        type="number"
+        name="precioUnitario"
+        value={producto.precioUnitario}
+        onChange={handleChange}
+        required
+      />
+
+      <label>Descuento (%):</label>
+      <input
+        type="number"
+        name="descuento"
+        value={producto.descuento}
+        onChange={handleChange}
+        required
+      />
+
+      <label>Stock:</label>
+      <input
+        type="number"
+        name="stock"
+        value={producto.stock}
+        onChange={handleChange}
+        required
+      />
+
+      <button type="submit">Agregar Producto</button>
+    </form>
+  );
 };
 
 export default ProductForm;
+
