@@ -41,7 +41,37 @@ function App() {
       )
     );
   }, []);
-  
+  const eliminarProducto = useCallback((id) => {
+    setProductos((prevProductos) =>
+      prevProductos.filter((producto) => producto.id !== id)
+    );
+  }, []);
+
+  return (
+    <>
+      <div className="container">
+        <h1>Lista de Productos</h1>
+        <SearchBar searchTerm={searchTerm} onSearch={buscarProducto} />
+
+        <ProductForm
+          onAddProducto={(nuevoProducto) => {
+            const existe = productos.some((p) => p.id === nuevoProducto.id);
+            if (existe) {
+              alert("Ya existe un producto con ese ID.");
+              return;
+            }
+            setProductos((prevProductos) => [...prevProductos, nuevoProducto]);
+          }}
+        />
+
+        <ProductList
+          productos={productosFiltrados}
+          onEditProducto={editarProducto}
+          onDeleteProducto={eliminarProducto}
+        />
+      </div>
+    </>
+  );  
 }
 
 export default App;
