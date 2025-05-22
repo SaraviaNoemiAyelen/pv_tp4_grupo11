@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useCallback, useEffect, useMemo } from "react";
+import "./App.css";
+import ProductList from "./components/ProductList.jsx";
+import ProductForm from "./components/ProductForm.jsx";
+import SearchBar from "./components/Searchbar.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [productos, setProductos] = useState([
+    { id: "1", descripcion: "Monitor Samsung", precioUnitario: 160000 },
+    { id: "2", descripcion: "Memoria Kingston", precioUnitario: 16500 },
+    { id: "3", descripcion: "Auriculares Inalambricos", precioUnitario: 20000 },
+    { id: "4", descripcion: "Placa de video", precioUnitario: 80000 },
+    { id: "5", descripcion: "Mouse", precioUnitario: 12000 },
+  ]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  useEffect(() => {
+    console.log("Lista de productos actualizada:", productos);
+  }, [productos]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const productosFiltrados = useMemo(() => {
+    if (!searchTerm.trim()) return productos;
+
+    return productos.filter(
+      (producto) =>
+        producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        producto.id.includes(searchTerm)
+    );
+  }, [productos, searchTerm]);
+  
 }
 
-export default App
+export default App;
