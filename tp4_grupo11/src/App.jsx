@@ -29,6 +29,19 @@ function App() {
     );
   }, [productos, searchTerm]);
   
+  const buscarProducto = useCallback((termino) => {
+    console.log("Valor ingresado en barra de búsqueda:", termino);
+    setSearchTerm(termino.trim());
+  }, []);
+
+  const editarProducto = useCallback((id, datosActualizados) => {
+    setProductos((prevProductos) =>
+      prevProductos.map((producto) =>
+        producto.id === id ? { ...producto, ...datosActualizados } : producto
+      )
+    );
+  }, []);
+  
 }
 
 export default App;
