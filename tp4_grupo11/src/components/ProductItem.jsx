@@ -8,7 +8,18 @@ const ProductItem = ({ producto, onEdit, onDelete}) => {
   const [stock, setStock] = useState(producto.stock);
 
   const handleEditClick = () => setEditando(true);
-
+  
+  const handleSave = () => {
+    const precioConDescuento = precioUnitario * (1 - descuento / 100);
+    onEdit(producto.id, {
+      descripcion,
+      precioUnitario,
+      descuento,
+      stock,
+      precioConDescuento,
+    });
+    setEditando(false);
+  };
 };
 
 export default ProductItem;
